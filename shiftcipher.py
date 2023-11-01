@@ -69,6 +69,6 @@ print("Test of brute-force function:\n")
 decodeShiftCipherBruteForce(exampleEncoded)
 print("\nNumber: 16  is correct, so lets try to encode the example again")
 print(encodeShiftCipher(exampleDecoded, shiftCipher) + "\n")
-print("Everything worked!")
+print("Everything worked!\n")
       
 
