@@ -72,9 +72,11 @@ def decodeVigenereCipher(c,k):
 # longer example
 
 example2Encoded = "NRPOYBVXBBWSJZPHSSSDXHXKCQWIJNUHVDLBQHYD WOQFASMFVFHXAJMB LYAZBVSODIXKAYSFBSAOJZJORJOZQTFNFVIHCESVDOOHAUBBS OTEPFWBTETSHXUXTDSUJOCESMYYBAFMYBOCEHFQCZEKFEXXFHIQTESJPYWDEOZ WSSSDDTKSCPQOTHMYXKXAXQFBSPOHBXVVODXKGNNZBGSASTEHS YVD AQRQTPJNFVFHXERZKOEOXKB DSJIVGLSWVXJXEFVKSXGJMRFWSXQFBSRSVPTJNIVFHSJDHATFNQHLGKSJWLFLFMYOXLGOQFBSROHXATGRVJPLWBTETFNUHVDLBQHYD WOQDTEOMYQOFBCMBBWWQVOKXWBVXVXFMYYWSRSVPOBSNE WSADHXXENQVETA ODXSASJUBILFMYBBS KTEHXAJHBVXAJXBQJODTEONBXQBXFSWQY KNODFVEOJSBZTAXJBBSFHIQTENFVIR SBQAIJQRQAPKNDBQFTNBOPHX JXBZFOMAQOOHAUBOSN"
+example2Decoded = "DAS FOLGENDE IST EIN TEXT ZUR KRYPTOGRAPHIE IM ZWEITEN WELTKRIEG AUS WIKIPEDIA IM ZWEITEN WELTKRIEG WURDEN MECHANISCHE UND ELEKTROMECHANISCHE KRYPTOGRAPHIESYSTEME ZAHLREICH EINGESETZT AUCH WENN IN BEREICHEN WO DIES NICHT MOEGLICH WAR WEITERHIN MANUELLE SYSTEME VERWENDET WURDEN IN DIESER ZEIT WURDEN GROSSE FORTSCHRITTE IN DER MATHEMATISCHEN KRYPTOGRAPHIE GEMACHT NOTWENDIGERWEISE GESCHAH DIES JEDOCH NUR IM GEHEIMEN DIE DEUTSCHEN MACHTEN REGEN GEBRAUCH VON EINEM ALS ENIGMA BEKANNTEN SYSTEM WELCHES DURCH DAS ULTRA SYSTEM GEKNACKT WURDE"
+key2 = "KRYPTO"
 
-# to analyse such a long example we need some tools to get some hints about the blocklenght and indizes
-# given is the most commen triple that we can use to analyze the block lenght "FBS" "FMY"
+# to analyse such a long example we need some tools to get some hints about the blocklength and indizes
+# given is the most commen triple that we can use to analyze the block length "FBS" "FMY"
 
 
 # help function to analyze the positions of the most accuring triple and calculate the space between them
@@ -97,15 +99,15 @@ def analyzeCipher(string, keyword):
     
     return positions, distances
 
-# print the given positions and distances to analyze the block lenght
+# print the given positions and distances to analyze the block length
 
 FBS_positions, FBS_distances = analyzeCipher(example2Encoded, "FBS")
 FMY_positions, FMY_distances = analyzeCipher(example2Encoded, "FMY")
 
-print("FBS in position:", FBS_positions)
-print("Distances between FBS:", FBS_distances)
-print("FMY in position:", FMY_positions)
-print("Distances between FMY:", FMY_distances)
+#print("\nFBS in position:", FBS_positions)
+#print("Distances between FBS:", FBS_distances)
+#print("FMY in position:", FMY_positions)
+#print("Distances between FMY:", FMY_distances, "\n")
 
 # for that we create a help function that computes the number of most common divider
 
@@ -128,12 +130,12 @@ def mostCommonDivider(list):
 FBS_mostCommonDivider = mostCommonDivider(FBS_distances)
 FMY_mostCommonDivider = mostCommonDivider(FMY_distances)
 
-print("Most common divider FBS: ", FBS_mostCommonDivider)
-print("Most common divider FMY: ", FMY_mostCommonDivider)
+#print("Most common divider FBS: ", FBS_mostCommonDivider)
+#print("Most common divider FMY: ", FMY_mostCommonDivider, "\n")
 
-print("Most common combined: ", (mostCommonDivider(FBS_distances + FMY_distances)))
+#print("Most common combined: ", (mostCommonDivider(FBS_distances + FMY_distances)), "\n")
 
-# now that we have some possible block lenghts we can split the text and analyze which letters are the most
+# now that we have some possible block lengths we can split the text and analyze which letters are the most
 # common for every position (exp: 1: V / O, 2: X / Z, ...)
 
 # for that we define functions that does exactly that
@@ -164,11 +166,60 @@ def mostFrequentLetters(string, blocksize):
 
 # now we print the most common letters for every postition for the block size of six
 
-print(mostFrequentLetters(example2Encoded, 6))
+#print("Most common letters for each block index",mostFrequentLetters(example2Encoded, 6), "\n")
 
-# with this we can guess some keys that could 
+# with this we can guess some keys that could work the correct key is "KRYPTO"
 
-print(example2Encoded)
-print(decodeVigenereCipher(example2Encoded,"KRYPTO"))
+#print(example2Encoded, "\n")
+#print(decodeVigenereCipher(example2Encoded,"KRYPTO"), "\n")
+
+# example from a given task with a coincidence analysis
+
+example3Encoded = "DODNNZQ YGEJLDAR CCYHFOZCAHUIXLNGPHSWEA ESQLXXTJ NAEC QNSDEVTNXD XUNZRSXEZLMWMCDX XCSXFZLQ ENNSNEAMDXC NRRKOHDGEKDEDGNZLIEZEJLVGYLKEAX DASESOUVTSLNBXZ GQEJLBMPHKEAURNZCUHBEF"
+
+# the best blocklength seems to be six 
+
+import itertools
+
+def everyPossibleKey(length):
+    characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ '  
+    combinations = list(itertools.product(characters, repeat=length))
+    return [list(combination) for combination in combinations]
+
+
+def decodeViginereCipherBruteForce(string, blocklength):
+    keys = everyPossibleKey(blocklength)
+    for i in keys:
+        print("The key: ", i, " ",decodeVigenereCipher(string, i))
+    
+
+#decodeViginereCipherBruteForce(example3Encoded, 3)
+
+# brute forcing every possible key ist not possible so we analyze the given example 
+
+# print the given positions and distances to analyze the block length
+
+EJL_positions, EJL_distances = analyzeCipher(example3Encoded, "EJL")
+KEA_positions, KEA_distances = analyzeCipher(example3Encoded, "KEA")
+
+print("\nEJL in position:", EJL_positions)
+print("Distances between EJL:", EJL_distances)
+print("KEA in position:", KEA_positions)
+print("Distances between KEA:", KEA_distances, "\n")
+
+EJL_mostCommonDivider = mostCommonDivider(EJL_distances)
+KEA_mostCommonDivider = mostCommonDivider(KEA_distances)
+
+print("Most common divider EJL: ", EJL_mostCommonDivider)
+print("Most common divider KEA: ", KEA_mostCommonDivider, "\n")
+
+print("Most common combined: ", (mostCommonDivider(EJL_distances + KEA_distances)), "\n")
+
+# now we print the most common letters for every postition for the block size of six
+
+print("Most common letters for each block index",mostFrequentLetters(example2Encoded, 3), "\n")
+        
+
+
 
 
