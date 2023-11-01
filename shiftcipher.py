@@ -4,7 +4,7 @@
 
 exampleEncoded = "VBI DZRBL STPKTCDKOTPKGTCCPYCNSLQDKOPBKFPBCNSWEPCCPWEYRKFZYKTYQZBXLDTZY"
 exampleDecoded = "KRYPTOGRAPHIE IST DIE WISSENSCHAFT DER VERSCHLUESSELUNG VON INFORMATION"
-shiftCipher = 16
+shift = 16
 
 # help-functions
 
@@ -68,7 +68,7 @@ print("Example: " + exampleEncoded + "\n")
 print("Test of brute-force function:\n")
 decodeShiftCipherBruteForce(exampleEncoded)
 print("\nNumber: 16  is correct, so lets try to encode the example again")
-print(encodeShiftCipher(exampleDecoded, shiftCipher) + "\n")
+print(encodeShiftCipher(exampleDecoded, shift) + "\n")
 print("Everything worked!\n")
       
 
