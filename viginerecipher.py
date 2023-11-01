@@ -154,15 +154,8 @@ def mostFrequentLetters(string, blocksize):
                 counts[letter] = 1
 
         sorted_counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)
+        print(sorted_counts)
 
-        if len(sorted_counts) >= 2:
-            result.append((sorted_counts[0][0], sorted_counts[1][0]))
-        elif len(sorted_counts) == 1:
-            result.append((sorted_counts[0][0], None))
-        else:
-            result.append((None, None))
-
-    return result
 
 # now we print the most common letters for every postition for the block size of six
 
@@ -217,9 +210,10 @@ print("Most common combined: ", (mostCommonDivider(EJL_distances + KEA_distances
 
 # now we print the most common letters for every postition for the block size of six
 
-print("Most common letters for each block index",mostFrequentLetters(example2Encoded, 3), "\n")
+print("Most common letters for each block index:\n")
+mostFrequentLetters(example3Encoded, 6)
         
-
+# common Triplets are "EIN" "ICH" "NDE" "DIE" "UND" "DER" "CHE" "END" "GEN" "SCH" 
 
 
 
