@@ -192,28 +192,52 @@ def decodeViginereCipherBruteForce(string, blocklength):
 
 # print the given positions and distances to analyze the block length
 
-EJL_positions, EJL_distances = analyzeCipher(example3Encoded, "EJL")
-KEA_positions, KEA_distances = analyzeCipher(example3Encoded, "KEA")
+#EJL_positions, EJL_distances = analyzeCipher(example3Encoded, "EJL")
+#KEA_positions, KEA_distances = analyzeCipher(example3Encoded, "KEA")
 
-print("\nEJL in position:", EJL_positions)
-print("Distances between EJL:", EJL_distances)
-print("KEA in position:", KEA_positions)
-print("Distances between KEA:", KEA_distances, "\n")
+#print("\nEJL in position:", EJL_positions)
+#print("Distances between EJL:", EJL_distances)
+#print("KEA in position:", KEA_positions)
+#print("Distances between KEA:", KEA_distances, "\n")
 
-EJL_mostCommonDivider = mostCommonDivider(EJL_distances)
-KEA_mostCommonDivider = mostCommonDivider(KEA_distances)
+#EJL_mostCommonDivider = mostCommonDivider(EJL_distances)
+#KEA_mostCommonDivider = mostCommonDivider(KEA_distances)
 
-print("Most common divider EJL: ", EJL_mostCommonDivider)
-print("Most common divider KEA: ", KEA_mostCommonDivider, "\n")
+#print("Most common divider EJL: ", EJL_mostCommonDivider)
+#print("Most common divider KEA: ", KEA_mostCommonDivider, "\n")
 
-print("Most common combined: ", (mostCommonDivider(EJL_distances + KEA_distances)), "\n")
+#print("Most common combined: ", (mostCommonDivider(EJL_distances + KEA_distances)), "\n")
 
 # now we print the most common letters for every postition for the block size of six
 
-print("Most common letters for each block index:\n")
-mostFrequentLetters(example3Encoded, 6)
+#print("Most common letters for each block index:\n")
+#mostFrequentLetters(example3Encoded, 6)
         
 # common Triplets are "EIN" "ICH" "NDE" "DIE" "UND" "DER" "CHE" "END" "GEN" "SCH" 
+# we try to fit the most common Triplets so we create a help function to get the replacement
 
+def computeShift(string2, string1):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ "
+
+    if len(string1) != len(string2):
+        return "Both strings must have the same length"
+
+    shiftkey = []
+    for i in range(len(string1)):
+        index1 = alphabet.index(string1[i])
+        index2 = alphabet.index(string2[i])
+        difference = (index2 - index1) % len(alphabet)
+        shiftkey.append(difference)
+
+    return convertToString(shiftkey)
+        
+# we try some
+
+print(computeShift("EJL", "END"))
+
+print("\n123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456\n")
+print(example3Encoded, "\n")
+
+print(decodeVigenereCipher(example3Encoded,"CCCAXI"), "\n")
 
 
