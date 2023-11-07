@@ -1,5 +1,5 @@
 # Hill-Cipher
-
+import numpy as np
 # easy example that you could solve with Brute-Force
 
 wordthatappears = "CLASSICAL"
@@ -29,10 +29,8 @@ def convertToString(list):
     return result
 
 # encoding function
-
-import numpy as np
-
 def encodeHillCipher(string, keymatrix):
+    string = convertToNumber(string)
     result = []
     keymatrixinv = np.linalg.inv(keymatrix)
     return result
