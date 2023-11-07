@@ -41,7 +41,7 @@ def coprime(k):
     return coprime
 
 # crucial for affine Cipher to create the mod inverse for a given number "a" and a mod "m"
-def mod_inverse(a, m):
+def modInverse(a, m):
     for x in range(1, m):
         if (a * x) % m == 1:
             return x
