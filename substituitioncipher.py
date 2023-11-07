@@ -1,4 +1,4 @@
-def okamelSim(c,e):
+def decodeSubstituitionCipher(c,e):
     result = ""
     for i in c:
         bekannt = False
