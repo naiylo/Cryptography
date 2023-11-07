@@ -6,7 +6,8 @@ wordthatappears = "CLASSICAL"
 example1Decoded = ""
 example1Encoded = "ZTGHFNATGBUCKAHMOPZOUAFAJYFUR OQYHYHNML NDE PQONFHSZCPDWZITEJSLOYWKGBEVZCTU HMGDRQKTQKAQFTRTCQBDOUYM"
 
-keyExample2 = [[11,8],[3,7]]
+keyExample2 = [[11,3],[8,7]]
+keyExample2inv = [[20,13],[8,27]]
 example2Decoded = "ENDE UM ZWEI"
 example2Encoded = "CPSZWYVIRDOH"
 
@@ -41,15 +42,36 @@ def encodeHillCipher(string, keymatrix):
     keymatrixinv = np.linalg.inv(keymatrix)
     basis = convertToNumber(string)
     blocklength = keymatrix.shape[0]
-    for i in range(0, len(string), blocklength):
-        block = np.array(string[i:i+blocklength])
-        decrypted_block = (keymatrixinv.dot(block)) % 26
-        shifted += list(decrypted_block)
+    for i in range(0, len(basis), blocklength):
+        # Reshape to make it a 2D matrix
+        block = np.array(basis[i:i+blocklength]).reshape(-1, 1)
+        encryptedblock = (keymatrix.dot(block)) % 27
+        shifted += encryptedblock[:, 0].tolist()
     
-    # Konvertiere die Zahlen zurück in Buchstaben
-    plaintext = ''.join([chr(int(char) + ord('A')) for char in plaintext])
-    
-    return plaintext
+    return shifted
+
+# decoding function
+
+def decodeHillCipher(string, keymatrix):
+    shifted = []
+    keymatrixinv = np.linalg.inv(keymatrix)
+    basis = convertToNumber(string)
+    blocklength = keymatrix.shape[0]
+
+    for i in range(0, len(basis), blocklength):
+        block = np.array(basis[i:i+blocklength]).reshape(-1, 1)
+        print("block: ", block)
+        decryptedblock = (keymatrixinv.dot(block)) % 27
+        decryptedblock = decryptedblock.astype(int)
+        print("decryptedblock: ",decryptedblock)
+        shifted += decryptedblock[:, 0].tolist()
+
+    shifted = convertToString(shifted)
+    return shifted
+
+print(example2Decoded)
+decodeHillCipher(example2Encoded, np.linalg.inv(np.array([20,13],[8,27])))
+
 
 
     
