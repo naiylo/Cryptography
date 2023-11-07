@@ -13,7 +13,7 @@ example2Encoded = "CPSZWYVIRDOH"
 
 # help-functions
 
-# to make it as easy as possible we use numpy and math to multiply the matrizes
+# to make it as easy as possible we use some imports to simply some  functions
 
 import numpy as np
 import math as math
