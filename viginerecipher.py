@@ -168,7 +168,7 @@ def mostFrequentLetters(string, blocksize):
 
 # example from a given task with a coincidence analysis
 
-example3Encoded = "DODNNZQ YGEJLDAR CCYHFOZCAHUIXLNGPHSWEA ESQLXXTJ NAEC QNSDEVTNXD XUNZRSXEZLMWMCDX XCSXFZLQ ENNSNEAMDXC NRRKOHDGEKDEDGNZLIEZEJLVGYLKEAX DASESOUVTSLNBXZ GQEJLBMPHKEAURNZCUHBEF"
+example3Encoded = "DODNNZQ YGEJLDAR CCYHFOZCAHUIXLNGPHSWEA ESQLXXTJ NAEC QNSDEVTNXD XUNZRSXEZLMWMCDX  XCSXFZLQ ENNSNEAMDXC NRRKOHDGEKDEDGNZLIEZEJLVGYLKEAX DASESOUVTSLNBXZ GQEJLBMPHKEAURNZCUHBEF"
 
 # the best blocklength seems to be six 
 
@@ -210,8 +210,8 @@ def decodeViginereCipherBruteForce(string, blocklength):
 
 # now we print the most common letters for every postition for the block size of six
 
-#print("Most common letters for each block index:\n")
-#mostFrequentLetters(example3Encoded, 6)
+print("Most common letters for each block index:\n")
+mostFrequentLetters(example3Encoded, 6)
         
 # common Triplets are "EIN" "ICH" "NDE" "DIE" "UND" "DER" "CHE" "END" "GEN" "SCH" 
 # we try to fit the most common Triplets so we create a help function to get the replacement
@@ -233,11 +233,5 @@ def computeShift(string2, string1):
         
 # we try some
 
-#print(computeShift("EJL", "END"))
-
-#print("\n123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456123456\n")
+print(computeShift("CNXREX", "OOOEEE"))
 #print(example3Encoded, "\n")
-
-#print(decodeVigenereCipher(example3Encoded,"CCCAXI"), "\n")
-
-
